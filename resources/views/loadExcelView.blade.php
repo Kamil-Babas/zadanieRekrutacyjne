@@ -39,6 +39,16 @@
 
 </div>
 
+<div class="resultDiv">
+    Przesyłanie plików zostało "wyłączone" <br/>
+    Funkcjonalność ta powstała w celu <br/>
+    jednorazowego wprowadzenia danych do bazy
+</div>
+
+<div id="resultDiv" class="resultDiv">
+
+</div>
+
 <script src="{{ asset('js/loadExcel.js') }}"></script>
 
 </body>

@@ -15,3 +15,10 @@ body {
     height: 5rem;
 }
 
+.resultDiv {
+    text-align: center;
+    margin-top: 3rem;
+    font-size: 3rem;
+    font-weight: bold;
+    color: orange;
+}
