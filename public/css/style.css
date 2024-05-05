@@ -1,36 +1,6 @@
-.menu-buttons-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    gap: 30px;
-}
-
-.logoutButton {
-    margin-right: 20px;
-    color: white;
-}
-
-.nav {
-    height: 60px;
-    background-color: #4169e1;
-}
-
-.nav-button {
-    text-decoration: none;
-    font-size: 40px;
-    color: white;
-}
-
-.nav-button:hover {
-    color: orange;
-    transition: 1.5s;
-    transform: scale(96%);
-}
-
 
 body {
     margin: 0;
     background: #0f0f0f;
     color: white;
-
 }
