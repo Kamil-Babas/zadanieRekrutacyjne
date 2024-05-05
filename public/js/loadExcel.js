@@ -41,8 +41,8 @@ function sendRequest() {
             return response.json();
         })
         .then(data => {
-            console.log(data);
-            console.log(data.message.length);
+            const resultDiv = document.getElementById('resultDiv');
+            resultDiv.innerHTML = data.message;
         })
         .catch(error => {
             window.alert('Fetch request error:');

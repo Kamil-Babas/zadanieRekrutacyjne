@@ -24,7 +24,7 @@ class ExcelHelper
 
 
     # Pobierz wartości z kolumny podając nazwę kolumny oraz numer wiersza z tytułami z formatowaniem
-    public function getColumnValues($columnName, $titleRow)
+    public function getColumnValues($columnName, $titleRow, $skipEmptyCells = false)
     {
         $columnName = mb_strtoupper($columnName);
         $targetColumn = $this->isTitle($columnName, $titleRow);
@@ -36,6 +36,12 @@ class ExcelHelper
             for ($currentRow = $titleRow + 1; $currentRow <= $this->highestRow; $currentRow++) {
 
                 $currentCell = $this->spreadsheet->getCell([$targetColumn, $currentRow])->getFormattedValue();
+
+                if ($currentCell === '' && $skipEmptyCells){
+                    $iterator++;
+                    continue;
+                }
+
                 $values[$iterator] = trim($currentCell);
                 $iterator++;
 
