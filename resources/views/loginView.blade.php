@@ -17,7 +17,7 @@
 
     <div class="form-wrapper">
         <div class="form-container">
-            <form action="/login" method="Post">
+            <form action="/auth/login" method="Post">
                 @csrf
                 <h1 align="center">SIGN IN</h1>
                 <div class="input-container">

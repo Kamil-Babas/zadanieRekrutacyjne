@@ -5,7 +5,7 @@
     <nav class="nav">
         <span class="menu-buttons-container">
             <a href="/excel/load" class="nav-button">Load Excel</a>
-            <form action="/logout" method="Post">
+            <form action="/auth/logout" method="Post">
                 @csrf
                 <button type="submit" style="background-color: inherit; border: none; cursor: pointer" class="nav-button logoutButton">Logout</button>
             </form>
