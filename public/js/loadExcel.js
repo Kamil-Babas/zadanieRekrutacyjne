@@ -27,7 +27,7 @@ function sendRequest() {
 
     const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    fetch('/excel/parse', {
+    fetch('/api/excel/parse', {
         method: 'POST',
         body: formData, // FormData object automatically sets Content-Type header to multipart/form-data
         headers: {

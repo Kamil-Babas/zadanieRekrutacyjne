@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 // Public Routes (Guest Only)
@@ -14,10 +15,10 @@ Route::middleware('guest')->group(function () {
     Route::get('/register', [AuthController::class, 'showRegisterView']);
 
     // register user
-    Route::post('/register', [AuthController::class, 'registerUser']);
+    Route::post('/auth/register', [AuthController::class, 'registerUser']);
 
     // login user
-    Route::post('/login', [AuthController::class, 'authenticate']);
+    Route::post('/auth/login', [AuthController::class, 'authenticate']);
 
 });
 
@@ -25,7 +26,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
 
     // logout
-    Route::post('/logout', [AuthController::class, 'logout']);
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
 
     // index
     Route::get('/', fn() => view('welcome'));
@@ -33,8 +34,15 @@ Route::middleware('auth')->group(function () {
     // excel upload form view
     Route::get('/excel/load', [ExcelController::class, 'loadExcelView']);
 
-    // parse excel file
-    Route::post('/excel/parse', [ExcelController::class, 'parseExcel']);
+
+    Route::prefix('api')->group(function () {
+
+        // parse excel file
+        Route::post('/excel/parse', [ExcelController::class, 'parseExcel']);
+
+        // search product based on 'q' query parameter
+        Route::get('/products/search', [ProductController::class, 'searchProduct']);
+    });
 
 });
 

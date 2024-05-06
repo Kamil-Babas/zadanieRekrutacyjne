@@ -17,7 +17,7 @@
 
     <div class="form-wrapper">
         <div class="form-container">
-            <form action="/register" method="Post">
+            <form action="/auth/register" method="Post">
                 @csrf
                 <h1 align="center">Register</h1>
                 <div class="input-container">

@@ -10,6 +10,17 @@
 </head>
 <body>
     <x-navbar></x-navbar>
-    <h1>main page</h1>
+
+    <div class="container">
+        <div class="formContainer">
+            <form>
+                <h2>Wyszukiwanie produktu</h2>
+                <input id="searchInput" type="text" placeholder="Nazwa produktu lub producent">
+            </form>
+        </div>
+    </div>
+
+    <script src="{{asset('js/welcome.js')}}"></script>
+
 </body>
 </html>
