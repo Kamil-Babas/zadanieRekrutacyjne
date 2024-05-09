@@ -31,7 +31,7 @@
                             <th>#</th>
                             <th>Nazwa</th>
                             <th>Producent</th>
-                            <th>Typ opakowania</th>
+                            <th>Opakowanie</th>
                             <th>Długość</th>
                             <th>Szerokość</th>
                             <th>Akcje</th>

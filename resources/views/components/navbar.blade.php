@@ -4,6 +4,7 @@
 
     <nav class="nav">
         <span class="menu-buttons-container">
+            <a href="/" class="nav-button">Home</a>
             <a href="/excel/load" class="nav-button">Load Excel</a>
             <form action="/auth/logout" method="Post">
                 @csrf

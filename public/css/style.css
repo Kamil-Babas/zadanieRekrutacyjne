@@ -101,6 +101,7 @@ input {
 #table-wrapper {
     max-height: 400px;
     overflow-y: auto;
+    /*overflow-x: hidden;*/
 }
 
 #myTable_paginate{
@@ -179,4 +180,42 @@ input {
 .header-sticky{
     position: sticky !important;
     top: 0;
+}
+
+
+.table-button {
+    background-color: orange;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: 500;
+}
+
+.table-button:hover {
+    transform: scale(92%);
+    transition: 1s;
+    cursor: pointer;
+}
+
+.icon-chevron-left::before {
+    content: "<";
+}
+
+.icon-chevron-right::before {
+    content: ">";
+}
+
+.icon-chevron-left:hover {
+    color: orange;
+    transition: 1s;
+}
+
+.icon-chevron-right:hover {
+    color: orange;
+    transition: 1s;
+}
+
+.dataTables_info {
+    margin-top: 10px;
 }
