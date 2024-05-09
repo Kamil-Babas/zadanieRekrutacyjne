@@ -51,7 +51,7 @@ function createTableRows(response) {
             const typOpakowania = product.typ_opakowania;
             const dlugosc = product.dlugosc;
             const szerokosc = product.szerokosc;
-            const button = `<button onclick="test('${nazwa}', '${producent}')">Test</button>`;
+            const button = `<button class="table-button" onclick="calculateQuantity('${product.jednostka_ceny}', '${product.typ_opakowania}', '${product.jednostki_zakupu}')">Wybierz</button>`;
 
             const row = tbody.insertRow(index);
             const cell1 = row.insertCell(0);
@@ -76,13 +76,6 @@ function createTableRows(response) {
     }
     initializeDataTable();
 }
-
-
-
-function test(nazwa, prod) {
-    alert(nazwa + prod)
-}
-
 
 //dataTable
 function initializeDataTable(){
@@ -110,7 +103,7 @@ function initializeDataTable(){
         columnDefs: [
             // Disable sorting for this column}
             // {targets: [0], sortable: false},
-            // {targets: [4], sortable: false},
+            {targets: [6], sortable: false},
         ]
     });
 
@@ -157,5 +150,214 @@ function initializeDataTable(){
             icon.removeClass('up down');
         }
     });
+
+    const searchInput = document.querySelector('input[type="search"]');
+    searchInput.placeholder = "Find in table";
+
+}
+
+
+function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
+
+    // quantity to order
+    let orderQuantity;
+
+    if(typOpakowania === 'rolka'){
+        switch(jednostkiZakupu) {
+
+            case '1 pełna paleta':
+                orderQuantity = '80 rolek';
+                alert(orderQuantity);
+                break;
+
+            case '':
+                orderQuantity = '150 M2'
+                alert(orderQuantity)
+                break;
+        }
+    }
+
+    if(typOpakowania === 'karton'){
+        switch(jednostkiZakupu){
+
+            case '1 pełna paleta':
+                orderQuantity = '7 kartonów';
+                alert(orderQuantity);
+                break;
+
+                case '1 paczka':
+                // paczka to 1/2 palety na palecie miesci sie 7 kartonow
+                // pol palety kartonow to 3,5 kartonu czyli do zamowienia 3 kartony
+                orderQuantity = '3 kartony'
+                alert(orderQuantity);
+                break;
+        }
+    }
+
+    if(typOpakowania === 'paczka'){
+        switch(jednostkiZakupu){
+            case '1 pełna paleta':
+                orderQuantity = '2 paczki';
+                alert(orderQuantity);
+                break;
+        }
+    }
+
+    if(typOpakowania === 'paleta'){
+        switch(jednostkiZakupu){
+            case '1 pełna paleta':
+                orderQuantity = '1 paleta';
+                alert(orderQuantity);
+                break;
+        }
+    }
+
+    if(typOpakowania === ''){
+        switch(jednostkiZakupu){
+
+            case '80 szt':
+                orderQuantity = '80 sztuk';
+                alert(orderQuantity);
+                break;
+
+            case '':
+                switch(jednostkaCeny){
+                    case 'M2':
+                        orderQuantity = '150 M2';
+                        alert(orderQuantity);
+                        break;
+                    case 'szt':
+                        orderQuantity = '400 sztuk'
+                        alert(orderQuantity);
+                        break;
+                    case 'paczka':
+                        orderQuantity = '2 paczki'
+                        alert(orderQuantity);
+                        break;
+                    case 'KRT':
+                        orderQuantity = 'jednostka zakupu KRT? czy to karton?'
+                        alert(orderQuantity);
+                        break;
+                    case 'M':
+                        orderQuantity = '200 M'
+                        alert(orderQuantity);
+                        break;
+                    case 'M3':
+                        orderQuantity = '1 M3'
+                        alert(orderQuantity);
+                        break;
+                }
+                break;
+
+            case '7 szt':
+                orderQuantity = '7 sztuk';
+                alert(orderQuantity);
+                break;
+
+            case '10 szt':
+                orderQuantity = '10 sztuk';
+                alert(orderQuantity);
+                break;
+
+            case '1 pełna paleta':
+                switch(jednostkaCeny){
+                    case 'M2':
+                        orderQuantity = '150 M2';
+                        alert(orderQuantity);
+                        break;
+                    case 'szt':
+                        orderQuantity = '400 sztuk'
+                        alert(orderQuantity);
+                        break;
+                    case 'paczka':
+                        orderQuantity = '2 paczki'
+                        alert(orderQuantity);
+                        break;
+                    case 'KRT':
+                        orderQuantity = 'jednostka zakupu KRT? czy to karton?'
+                        alert(orderQuantity);
+                        break;
+                    case 'M':
+                        orderQuantity = '200 M'
+                        alert(orderQuantity);
+                        break;
+                    case 'M3':
+                        orderQuantity = '1 M3'
+                        alert(orderQuantity);
+                        break;
+                }
+                break;
+
+            case '192 szt':
+                orderQuantity = '192 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '216 szt':
+                orderQuantity = '216 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '100 szt':
+                orderQuantity = '100 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '144 szt':
+                orderQuantity = '144 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '72 szt':
+                orderQuantity = '72 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '54 szt':
+                orderQuantity = '54 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '48 szt':
+                orderQuantity = '48 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '90 szt':
+                orderQuantity = '90 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '24 szt':
+                orderQuantity = '24 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '200 szt':
+                orderQuantity = '200 sztuki';
+                alert(orderQuantity);
+                break;
+
+            case '1 szt':
+                orderQuantity = '1 sztuka';
+                alert(orderQuantity);
+                break;
+
+            case '1 paczka':
+                orderQuantity = '1 paczka';
+                alert(orderQuantity);
+                break;
+
+            case '12 paczka':
+                orderQuantity = '12 paczek';
+                alert(orderQuantity);
+                break;
+
+            case '10 paczka':
+                orderQuantity = '10 paczek';
+                alert(orderQuantity);
+                break;
+        }
+    }
 
 }
