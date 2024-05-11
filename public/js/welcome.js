@@ -13,23 +13,53 @@ function sendRequest() {
     const searchInputValue = searchInput.value.trim();
     const url = `/api/products/search?q=${searchInputValue}`
 
-    fetch(url)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            createTableRows(data);
-        })
-        .catch(error => {
-            // Handle errors
-            console.error('There was a problem with the fetch operation:', error);
-        });
+    if (searchInputValue === '') {
+        $('#myTable tbody').empty();
+
+        // Destroy DataTable instance if exists
+        if ($.fn.DataTable.isDataTable('#myTable')) {
+
+            const dataTableInstance = $('#myTable').DataTable();
+            dataTableInstance.clear().destroy();
+
+            $('#tabProductsWrapper .dataTables-controls').remove();
+            $('#tabProductsWrapper .dataTables_length').remove();
+            $('#tabProductsWrapper .dataTables_info').remove();
+            $('#tabProductsWrapper .dataTables_paginate').remove();
+            $('#tabProductsWrapper .dataTables_filter').remove();
+        }
+
+    }
+    else
+    {
+        fetch(url)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                createTableRows(data);
+            })
+            .catch(error => {
+                // Handle errors
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
+
+
+
 }
 
 function createTableRows(response) {
+
+    // Hide the products table
+    const showProductsTable = document.getElementsByClassName('productsContainer')[0];
+    const hideResultTable = document.getElementsByClassName('result-container')[0];
+
+    showProductsTable.style.display = 'block';
+    hideResultTable.style.display = 'none';
 
     $('#myTable tbody').empty();
     const tbody = document.getElementById('myTable').getElementsByTagName('tbody')[0];
@@ -51,7 +81,13 @@ function createTableRows(response) {
             const typOpakowania = product.typ_opakowania;
             const dlugosc = product.dlugosc;
             const szerokosc = product.szerokosc;
-            const button = `<button class="table-button" onclick="calculateQuantity('${product.jednostka_ceny}', '${product.typ_opakowania}', '${product.jednostki_zakupu}')">Wybierz</button>`;
+            const button = `<button class="table-button"
+onclick="calculateQuantity(
+                           '${product.jednostka_ceny}',
+                           '${product.typ_opakowania}',
+                           '${product.jednostki_zakupu}' ,
+                           '${product.nazwa_produktu}',
+                           '${product.producent}')">Wybierz</button>`;
 
             const row = tbody.insertRow(index);
             const cell1 = row.insertCell(0);
@@ -157,7 +193,7 @@ function initializeDataTable(){
 }
 
 
-function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
+function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu, produkt, producent) {
 
     // quantity to order
     let orderQuantity;
@@ -167,12 +203,10 @@ function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
 
             case '1 pełna paleta':
                 orderQuantity = '80 rolek';
-                alert(orderQuantity);
                 break;
 
             case '':
                 orderQuantity = '150 M2'
-                alert(orderQuantity)
                 break;
         }
     }
@@ -182,14 +216,12 @@ function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
 
             case '1 pełna paleta':
                 orderQuantity = '7 kartonów';
-                alert(orderQuantity);
                 break;
 
                 case '1 paczka':
                 // paczka to 1/2 palety na palecie miesci sie 7 kartonow
                 // pol palety kartonow to 3,5 kartonu czyli do zamowienia 3 kartony
                 orderQuantity = '3 kartony'
-                alert(orderQuantity);
                 break;
         }
     }
@@ -198,7 +230,6 @@ function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
         switch(jednostkiZakupu){
             case '1 pełna paleta':
                 orderQuantity = '2 paczki';
-                alert(orderQuantity);
                 break;
         }
     }
@@ -207,7 +238,6 @@ function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
         switch(jednostkiZakupu){
             case '1 pełna paleta':
                 orderQuantity = '1 paleta';
-                alert(orderQuantity);
                 break;
         }
     }
@@ -217,147 +247,143 @@ function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
 
             case '80 szt':
                 orderQuantity = '80 sztuk';
-                alert(orderQuantity);
                 break;
 
             case '':
                 switch(jednostkaCeny){
                     case 'M2':
                         orderQuantity = '150 M2';
-                        alert(orderQuantity);
                         break;
                     case 'szt':
                         orderQuantity = '400 sztuk'
-                        alert(orderQuantity);
                         break;
                     case 'paczka':
                         orderQuantity = '2 paczki'
-                        alert(orderQuantity);
                         break;
                     case 'KRT':
                         orderQuantity = 'jednostka zakupu KRT? czy to karton?'
-                        alert(orderQuantity);
                         break;
                     case 'M':
                         orderQuantity = '200 M'
-                        alert(orderQuantity);
                         break;
                     case 'M3':
                         orderQuantity = '1 M3'
-                        alert(orderQuantity);
                         break;
                 }
                 break;
 
             case '7 szt':
                 orderQuantity = '7 sztuk';
-                alert(orderQuantity);
                 break;
 
             case '10 szt':
                 orderQuantity = '10 sztuk';
-                alert(orderQuantity);
                 break;
 
             case '1 pełna paleta':
                 switch(jednostkaCeny){
                     case 'M2':
                         orderQuantity = '150 M2';
-                        alert(orderQuantity);
                         break;
                     case 'szt':
                         orderQuantity = '400 sztuk'
-                        alert(orderQuantity);
                         break;
                     case 'paczka':
                         orderQuantity = '2 paczki'
-                        alert(orderQuantity);
                         break;
                     case 'KRT':
                         orderQuantity = 'jednostka zakupu KRT? czy to karton?'
-                        alert(orderQuantity);
                         break;
                     case 'M':
                         orderQuantity = '200 M'
-                        alert(orderQuantity);
                         break;
                     case 'M3':
                         orderQuantity = '1 M3'
-                        alert(orderQuantity);
                         break;
                 }
                 break;
 
             case '192 szt':
                 orderQuantity = '192 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '216 szt':
                 orderQuantity = '216 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '100 szt':
                 orderQuantity = '100 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '144 szt':
                 orderQuantity = '144 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '72 szt':
                 orderQuantity = '72 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '54 szt':
                 orderQuantity = '54 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '48 szt':
                 orderQuantity = '48 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '90 szt':
                 orderQuantity = '90 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '24 szt':
                 orderQuantity = '24 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '200 szt':
                 orderQuantity = '200 sztuki';
-                alert(orderQuantity);
                 break;
 
             case '1 szt':
                 orderQuantity = '1 sztuka';
-                alert(orderQuantity);
                 break;
 
             case '1 paczka':
                 orderQuantity = '1 paczka';
-                alert(orderQuantity);
                 break;
 
             case '12 paczka':
                 orderQuantity = '12 paczek';
-                alert(orderQuantity);
                 break;
 
             case '10 paczka':
                 orderQuantity = '10 paczek';
-                alert(orderQuantity);
                 break;
         }
     }
-
+    printResult(produkt, producent, orderQuantity);
 }
+
+function printResult(produkt, producent, minimumOrderQuantity) {
+    // Hide the products table
+    const hideProductsTable = document.getElementsByClassName('productsContainer')[0];
+    const showResultTable = document.getElementsByClassName('result-container')[0];
+
+    hideProductsTable.style.display = 'none';
+    showResultTable.style.display = 'block';
+
+    const tbody = document.getElementById('resultTable').getElementsByTagName('tbody')[0];
+    tbody.innerHTML ='';
+
+    const newRowHTML = `
+        <tr>
+            <td>${produkt}</td>
+            <td>${producent}</td>
+            <td>${minimumOrderQuantity}</td>
+        </tr>
+    `;
+
+    tbody.insertAdjacentHTML('beforeend', newRowHTML);
+}
+
+
+

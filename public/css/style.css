@@ -219,3 +219,64 @@ input {
 .dataTables_info {
     margin-top: 10px;
 }
+
+
+#resultTable {
+    width: 100%;
+    border-spacing: 0;
+}
+
+#resultTable th {
+    font-size: 2.5rem;
+    color: #f1f1f1;
+    border-collapse: separate;
+    padding: 14px 10px;
+}
+
+#resultTable tr {
+    background-color: #4f4f4f;
+}
+
+
+/*///*/
+
+#resultTable thead tr {
+    background-color: royalblue;
+}
+
+#resultTable td {
+    padding: 14px 10px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 1.6rem;
+}
+
+
+#resultTable tr:hover {
+    border-radius: 4px;
+    background-color: #323232;
+    /*background-color: orange;*/
+    color: #7ca4cc;
+    transition: 0.5s;
+}
+
+
+#resultTable thead tr:hover {
+    background-color: royalblue;
+}
+
+.result-container {
+    margin-top: 5rem;
+}
+
+#resultTable tr {
+    text-align: center;
+}
+
+#resultTable th {
+    text-align: center;
+}
+
+.result-container {
+    display: none;
+}
