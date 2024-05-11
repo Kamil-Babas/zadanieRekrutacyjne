@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    //returns json with products
     public function searchProduct(Request $request)
     {
         $query = $request->query('q');

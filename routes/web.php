@@ -40,7 +40,7 @@ Route::middleware('auth')->group(function () {
         // parse excel file
         Route::post('/excel/parse', [ExcelController::class, 'parseExcel']);
 
-        // search product based on 'q' query parameter
+        // search product based on 'q' query parameter -> returns json
         Route::get('/products/search', [ProductController::class, 'searchProduct']);
     });
 

@@ -45,6 +45,24 @@
             </div>
         </div>
 
+        <div class="result-container">
+
+            <table id="resultTable">
+                <thead>
+                <tr>
+                    <th>Produkt</th>
+                    <th>Producent</th>
+                    <th>Minimum Order Quantity</th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                </tbody>
+            </table>
+
+        </div>
+
     </div>
 
     <script src="{{asset('js/welcome.js')}}"></script>
