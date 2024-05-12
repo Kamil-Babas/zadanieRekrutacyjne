@@ -47,7 +47,7 @@
                     </div>
 
                     <div>
-                        <button class="loginButton">Login</button>
+                        <button class="loginButton">Register</button>
                     </div>
                 </div>
             </form>
