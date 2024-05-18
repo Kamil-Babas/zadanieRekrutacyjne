@@ -54,13 +54,6 @@ function sendRequest() {
 
 function createTableRows(response) {
 
-    // Hide the products table
-    const showProductsTable = document.getElementsByClassName('productsContainer')[0];
-    const hideResultTable = document.getElementsByClassName('result-container')[0];
-
-    showProductsTable.style.display = 'block';
-    hideResultTable.style.display = 'none';
-
     $('#myTable tbody').empty();
     const tbody = document.getElementById('myTable').getElementsByTagName('tbody')[0];
 
@@ -70,7 +63,6 @@ function createTableRows(response) {
         dataTableInstance.clear().destroy();
     }
 
-
     let i = 0;
 
     if(response.length > 0) {
@@ -78,16 +70,13 @@ function createTableRows(response) {
 
             const nazwa = product.nazwa_produktu;
             const producent = product.producent;
-            const typOpakowania = product.typ_opakowania;
+            const typOpakowania = product.typ_opakowania ? product.typ_opakowania : '---';
             const dlugosc = product.dlugosc;
             const szerokosc = product.szerokosc;
-            const button = `<button class="table-button"
-onclick="calculateQuantity(
-                           '${product.jednostka_ceny}',
-                           '${product.typ_opakowania}',
-                           '${product.jednostki_zakupu}' ,
-                           '${product.nazwa_produktu}',
-                           '${product.producent}')">Wybierz</button>`;
+            const minimalnaIlosc = calculateQuantity(
+                           product.jednostka_ceny,
+                           product.typ_opakowania,
+                           product.jednostki_zakupu);
 
             const row = tbody.insertRow(index);
             const cell1 = row.insertCell(0);
@@ -103,9 +92,9 @@ onclick="calculateQuantity(
             cell2.textContent = nazwa;
             cell3.textContent = producent;
             cell4.textContent = typOpakowania;
-            cell5.innerHTML = dlugosc;
-            cell6.innerHTML = szerokosc;
-            cell7.innerHTML = button;
+            cell5.textContent = dlugosc;
+            cell6.textContent = szerokosc;
+            cell7.textContent = minimalnaIlosc;
             i++;
 
         })
@@ -193,10 +182,9 @@ function initializeDataTable(){
 }
 
 
-function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu, produkt, producent) {
-
+function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu) {
     // quantity to order
-    let orderQuantity;
+    let orderQuantity = 'unknown quantity';
 
     if(typOpakowania === 'rolka'){
         switch(jednostkiZakupu) {
@@ -360,29 +348,8 @@ function calculateQuantity(jednostkaCeny, typOpakowania, jednostkiZakupu, produk
                 break;
         }
     }
-    printResult(produkt, producent, orderQuantity);
-}
 
-function printResult(produkt, producent, minimumOrderQuantity) {
-    // Hide the products table
-    const hideProductsTable = document.getElementsByClassName('productsContainer')[0];
-    const showResultTable = document.getElementsByClassName('result-container')[0];
-
-    hideProductsTable.style.display = 'none';
-    showResultTable.style.display = 'block';
-
-    const tbody = document.getElementById('resultTable').getElementsByTagName('tbody')[0];
-    tbody.innerHTML ='';
-
-    const newRowHTML = `
-        <tr>
-            <td>${produkt}</td>
-            <td>${producent}</td>
-            <td>${minimumOrderQuantity}</td>
-        </tr>
-    `;
-
-    tbody.insertAdjacentHTML('beforeend', newRowHTML);
+    return orderQuantity;
 }
 
 

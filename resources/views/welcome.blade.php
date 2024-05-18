@@ -34,7 +34,7 @@
                             <th>Opakowanie</th>
                             <th>Długość</th>
                             <th>Szerokość</th>
-                            <th>Akcje</th>
+                            <th>Min Order</th>
                         </thead>
                         <tbody>
 
@@ -43,24 +43,6 @@
                 </div>
 
             </div>
-        </div>
-
-        <div class="result-container">
-
-            <table id="resultTable">
-                <thead>
-                <tr>
-                    <th>Produkt</th>
-                    <th>Producent</th>
-                    <th>Minimum Order Quantity</th>
-                </tr>
-                </thead>
-
-                <tbody>
-
-                </tbody>
-            </table>
-
         </div>
 
     </div>
